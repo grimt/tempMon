@@ -17,21 +17,21 @@ def writeDataToFile (filename, data):
 
     except IOError:
         #libFileLogger.warning ("Cant open file " + filename + " for writing")
-        print "Cant open file for writing"
+        print ("Cant open file for writing: " + filename)
 
 def appendDataToFile (filename, data):
 # filename:   string - full path to file
 # data:       string - data to write
 # exceptions: log and continue
     try:
-        print filename
+        #print (filename)
         f = open (filename, 'a')
         f.write (data)
         f.close ()
 
     except IOError:
         # libFileLogger.warning ("Cant open file " + filename + " for writing")
-        print "Cant open file for writing"
+        print ("Cant open file for writing: " + filename)
 
 def readDataFromFile(filename):
     data = ''
@@ -41,7 +41,7 @@ def readDataFromFile(filename):
         f.close ()
     except IOError:
         #libFileLogger.warning ("Cant open file desired_temperature.txt for reading")
-        print "Cant open file for writing"
+        print ("Cant open file for writing: "+ filename)
 
     return data
 
@@ -52,20 +52,18 @@ def readDataFromFile(filename):
 
 # Test code
 if __name__ == "__main__":
-    print "Executing test code:"
+    print ("Executing test code:")
     writeDataToFile ('../datafiles/testFile.txt', 'BOLLARDS')
-    print readDataFromFile ('../datafiles/testFile.txt')
+    # print readDataFromFile ('../datafiles/testFile.txt')
 
     # Writing and reading numbers as strings then converting back to numbers
     temp = 10
     temp = temp + 15
     writeDataToFile ('../datafiles/testFile.txt', str(temp))
-    print int (readDataFromFile ('../datafiles/testFile.txt'))
+    # print int (readDataFromFile ('../datafiles/testFile.txt'))
 
     # Now floating point
 
     floatTemp = 24/7.0
     writeDataToFile ('../datafiles/testFile.txt', str(floatTemp))
-    print float (readDataFromFile ('../datafiles/testFile.txt'))
-
-    # Next add file specific logging for errors.
+    # print float (readDataFromFile ('../datafiles/testFile.txt'))
