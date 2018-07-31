@@ -3,12 +3,19 @@
 # Save data to a failed
 # Append data to an archive
 
+import sys
+import Adafruit_DHT
+import time
+import datetime
+from lib.libFile import  writeDataToFile
+from lib.libFile import appendDataToFile
+
 def p2AppendAmbTempToFile (temp):
-    # append the temperature to a file to allow analysis of tempereture changes.
+    # append the temperature to a file to allow analysis of temperature changes.
     localDate = datetime.datetime.date(datetime.datetime.now()).strftime('%d/%m/%Y')
     localtime = datetime.datetime.time(datetime.datetime.now()).strftime('%H:%M:%S')
     data = localDate  + ' ' + localtime + ',' + temp + "\n"
-    print data
+    #print(data)
     appendDataToFile('../datafiles/p2ArchiveTemperature.txt', data)
 
 
@@ -17,7 +24,7 @@ def p2WriteAmbTempToFile (temp):
     localDate = datetime.datetime.date(datetime.datetime.now()).strftime('%d/%m/%Y')
     localtime = datetime.datetime.time(datetime.datetime.now()).strftime('%H:%M:%S')
     data = localDate  + ' ' + localtime + ',' + temp + "\n"
-    print data
+    #print (data)
     writeDataToFile('../datafiles/p2CurrentTemperature.txt', data)
 
 def p2ReadFromDHT():
@@ -32,7 +39,7 @@ def p2ReadFromDHT():
         # If this happens try again!
 
         if humidity is not None and temperature is not None:
-            print ('Temp= ' + str(format(temperature,'0.2f')))
+            #print ('Temp= ' + str(format(temperature,'0.2f')))
             tempStr = str(format(temperature,'0.2f'))
             p2AppendAmbTempToFile(tempStr)
             p2WriteAmbTempToFile(tempStr)
