@@ -18,7 +18,7 @@ def writeDataToFile (filename, data):
     except IOError:
         #libFileLogger.warning ("Cant open file " + filename + " for writing")
         print "Cant open file for writing"
-      
+
 def appendDataToFile (filename, data):
 # filename:   string - full path to file
 # data:       string - data to write
@@ -45,18 +45,7 @@ def readDataFromFile(filename):
 
     return data
 
-def writeData (path, data):
-    #print "Write to file: " + path
-    path = '/home/pi/pycode/fireV3/' + path
-    writeDataToFile (path, data)
 
-def appendData (path, data):
-    path = '/home/pi/projects/tempMon/' + path
-    appendDataToFile (path, data)
-
-def readData (path):
-    path = '/home/pi/pycode/fireV3/' + path
-    return readDataFromFile (path)
 
 
 #libFileLogger = initLogging('/var/log/fireV3/libFile.log')
