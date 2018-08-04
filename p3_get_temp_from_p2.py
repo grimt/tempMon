@@ -2,7 +2,7 @@
 # Wait for the result then print it out
 import socket
 
-def get_temp_from_p2():
+def p3_get_temp_from_p2():
         host = '192.168.1.252'
         port = 5000
 
@@ -20,3 +20,5 @@ def get_temp_from_p2():
                 message = input(" -> ")
 
         mySocket.close()
+
+p3_get_temp_from_p2()

@@ -4,7 +4,7 @@
 
 import socket
 
-def Main():
+def p2_send_temp_p3():
     host = "192.168.1.253"
     port = 5000
 
@@ -25,3 +25,5 @@ def Main():
             conn.send(data.encode())
 
     conn.close()
+
+    p2_send_temp_p3()
