@@ -5,11 +5,12 @@
 import socket
 
 def p2_send_temp_p3():
-    host = "192.168.1.253"
+    local_host = "192.168.1.252"
+    remote_ip = "192.168.1.253"
     port = 5000
 
     mySocket = socket.socket()
-    mySocket.bind((host,port))
+    mySocket.bind((local_host,port))
 
     mySocket.listen(1)
     conn, addr = mySocket.accept()
@@ -22,8 +23,22 @@ def p2_send_temp_p3():
 
             data = str(data).upper()
             print ("sending: " + str(data))
-            conn.send(data.encode())
+            try:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            except socket.error:
+                    print ('Failed to create socket')
+                    break 
+            try:
+                    s.connect((remote_ip , port))
+            except:
+                    print ('connection refused')
 
-    conn.close()
+            try :
+                    s.sendall(data.encode()) 
+                  #  conn.send(data.encode())
+                    s.close()
+            except:
+                print('Send data failed')
+                break
 
-    p2_send_temp_p3()
+p2_send_temp_p3()
