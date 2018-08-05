@@ -1,43 +1,43 @@
 # Send a message to p2 asking for the temperature
 # Wait for the result then print it out
+corresponding pi2 code is p2_reply_temp.py
 import socket
 
 def p3_get_temp_from_p2():
-        local_host = '192.168.1.252'
-        remote_ip = "192.168.1.253"
+        local_host = "192.168.1.253"
+        remote_ip = "192.168.1.252"
         port = 5000
 
         mySocket = socket.socket()
-        mySocket.connect((local_host,port))
+        mySocket.bind((local_host,port))
+        mySocket.listen(10)
 
         message = input(" -> ")
-
         while message != 'q':
-                try:
-                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                except socket.error:
-                    print ('Failed to create socket')
-                    break
-                try:
-                        s.connect((remote_ip , port))
-                except:
-                        print ('connection refused')
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            except socket.error:
+                print ('Failed to create socket')
+                break
+            try:
+                s.connect((remote_ip , port))
+            except:
+                print ('connection refused')
 
-                try :
-                        s.send(message.encode())
-                        data = mySocket.recv(1024).decode()
+            try:
+                print ('Sending ' + message)
+                s.send(message.encode())
+                s.close()
+            except:
+                print('Send data failed')
 
-                        print ('Received from server: ' + data)
+            conn, addr = mySocket.accept()
+            print ("Connection from: " + str(addr))
+            data = conn.recv(1024).decode()
+            print ('Received from server: ' + data)
+            conn.close()
 
-                        message = input(" -> ")
-                        s.close()
-                except:
-                    print('Send data failed')
-                    break
-
-
-
-
-        mySocket.close()
+            s.close()
+            message = input(" -> ")
 
 p3_get_temp_from_p2()
