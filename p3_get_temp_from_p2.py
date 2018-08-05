@@ -3,21 +3,40 @@
 import socket
 
 def p3_get_temp_from_p2():
-        host = '192.168.1.252'
+        local_host = '192.168.1.252'
+        remote_ip = "192.168.1.253"
         port = 5000
 
         mySocket = socket.socket()
-        mySocket.connect((host,port))
+        mySocket.connect((local_host,port))
 
         message = input(" -> ")
 
         while message != 'q':
-                mySocket.send(message.encode())
-                data = mySocket.recv(1024).decode()
+                try:
+                        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                except socket.error:
+                    print ('Failed to create socket')
+                    break
+                try:
+                        s.connect((remote_ip , port))
+                except:
+                        print ('connection refused')
 
-                print ('Received from server: ' + data)
+                try :
+                        s.send(message.encode())
+                        data = mySocket.recv(1024).decode()
 
-                message = input(" -> ")
+                        print ('Received from server: ' + data)
+
+                        message = input(" -> ")
+                        s.close()
+                except:
+                    print('Send data failed')
+                    break
+
+
+
 
         mySocket.close()
 
