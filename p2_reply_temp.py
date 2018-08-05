@@ -1,6 +1,7 @@
 # Receive message from p3, Send back
 # Latest temperature as stored in a File
-# Nect get the data from a file and send it back
+Corresponding pi3 code is p3_get_temp_from_p2.py
+# Next get the data from a file and send it back
 
 import socket
 
@@ -12,33 +13,30 @@ def p2_send_temp_p3():
     mySocket = socket.socket()
     mySocket.bind((local_host,port))
 
-    mySocket.listen(1)
-    conn, addr = mySocket.accept()
-    print ("Connection from: " + str(addr))
+    mySocket.listen(10)
     while True:
-            data = conn.recv(1024).decode()
-            if not data:
-                    break
+        conn, addr = mySocket.accept()
+        print ("Connection from: " + str(addr))
+        data = conn.recv(1024).decode()
+        if not data:
+            print('Error receiving data')
+            conn.close()
+        else:
             print ("from connected  user: " + str(data))
-
             data = str(data).upper()
             print ("sending: " + str(data))
             try:
-                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             except socket.error:
-                    print ('Failed to create socket')
-                    break 
+                print ('Failed to create socket')
             try:
-                    s.connect((remote_ip , port))
+                s.connect((remote_ip , port))
             except:
-                    print ('connection refused')
-
+                print ('connection refused')
             try :
-                    s.sendall(data.encode()) 
-                  #  conn.send(data.encode())
-                    s.close()
+                s.send(data.encode()) 
+                s.close()
             except:
                 print('Send data failed')
-                break
-
+        conn.close()
 p2_send_temp_p3()
