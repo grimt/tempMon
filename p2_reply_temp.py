@@ -1,9 +1,10 @@
 # Receive message from p3, Send back
 # Latest temperature as stored in a File
-Corresponding pi3 code is p3_get_temp_from_p2.py
+# Corresponding pi3 code is p3_get_temp_from_p2.py
 # Next get the data from a file and send it back
 
 import socket
+from lib.libFile import  writeDataToFile
 
 def p2_send_temp_p3():
     local_host = "192.168.1.252"
@@ -23,7 +24,8 @@ def p2_send_temp_p3():
             conn.close()
         else:
             print ("from connected  user: " + str(data))
-            data = str(data).upper()
+            readDataFromFile('../datafiles/p2CurrentTemperature.txt', data)
+            # data = str(data).upper()
             print ("sending: " + str(data))
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -34,7 +36,7 @@ def p2_send_temp_p3():
             except:
                 print ('connection refused')
             try :
-                s.send(data.encode()) 
+                s.send(data.encode())
                 s.close()
             except:
                 print('Send data failed')
