@@ -21,9 +21,7 @@ def p2AppendAmbTempToFile (temp):
 
 def p2WriteAmbTempToFile (temp):
     # Write the temperature to a file. This will be the latest temperature
-    localDate = datetime.datetime.date(datetime.datetime.now()).strftime('%d/%m/%Y')
-    localtime = datetime.datetime.time(datetime.datetime.now()).strftime('%H:%M:%S')
-    data = localDate  + ' ' + localtime + ',' + temp + "\n"
+    data = temp + "\n"
     #print (data)
     writeDataToFile('../datafiles/p2CurrentTemperature.txt', data)
 

@@ -4,7 +4,7 @@
 # Next get the data from a file and send it back
 
 import socket
-from lib.libFile import  writeDataToFile
+from lib.libFile import readDataFromFile
 
 def p2_send_temp_p3():
     local_host = "192.168.1.252"
@@ -24,7 +24,7 @@ def p2_send_temp_p3():
             conn.close()
         else:
             print ("from connected  user: " + str(data))
-            readDataFromFile('../datafiles/p2CurrentTemperature.txt', data)
+            data = readDataFromFile('../datafiles/p2CurrentTemperature.txt')
             # data = str(data).upper()
             print ("sending: " + str(data))
             try:
