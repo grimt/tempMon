@@ -23,22 +23,24 @@ def p2_send_temp_p3():
             print('Error receiving data')
             conn.close()
         else:
-            print ("from connected  user: " + str(data))
-            data = readDataFromFile('../datafiles/p2CurrentTemperature.txt')
-            # data = str(data).upper()
-            print ("sending: " + str(data))
-            try:
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            except socket.error:
-                print ('Failed to create socket')
-            try:
-                s.connect((remote_ip , port))
-            except:
-                print ('connection refused')
-            try :
-                s.send(data.encode())
-                s.close()
-            except:
-                print('Send data failed')
+            if str(data) = "p3:TEMP":
+                print ("from connected  user: " + str(data))
+                data = readDataFromFile('../datafiles/p2CurrentTemperature.txt')
+                print ("sending: " + str(data))
+                try:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                except socket.error:
+                    print ('Failed to create socket')
+                    try:
+                        s.connect((remote_ip , port))
+                    except:
+                        print ('connection refused')
+                        try :
+                            s.send(data.encode())
+                            s.close()
+                        except:
+                            print('Send data failed')
+            else:
+                print("unknown message")                
         conn.close()
 p2_send_temp_p3()
