@@ -2,6 +2,7 @@
 # Wait for the result then print it out
 # corresponding pi2 code is p2_reply_temp.py
 import socket
+import time
 
 def p3_get_temp_from_p2():
         local_host = "192.168.1.253"
@@ -11,9 +12,8 @@ def p3_get_temp_from_p2():
         mySocket = socket.socket()
         mySocket.bind((local_host,port))
         mySocket.listen(10)
-
-        message = input(" -> ")
-        while message != 'q':
+        gtPause = input(" -> ")
+        while True: 
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             except socket.error:
@@ -25,6 +25,7 @@ def p3_get_temp_from_p2():
                 print ('connection refused')
 
             try:
+                message = "p3:TEMP"
                 print ('Sending ' + message)
                 s.send(message.encode())
                 s.close()
@@ -38,6 +39,6 @@ def p3_get_temp_from_p2():
             conn.close()
 
             s.close()
-            message = input(" -> ")
+            time.sleep(5)
 
 p3_get_temp_from_p2()
