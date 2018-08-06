@@ -13,17 +13,18 @@ def p3_get_temp_from_p2():
         mySocket.bind((local_host,port))
         mySocket.listen(10)
         gtPause = input(" -> ")
-        while True: 
+        while True:
+            time.sleep(5)
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             except socket.error:
                 print ('Failed to create socket')
-                break
+                continue
             try:
                 s.connect((remote_ip , port))
             except:
                 print ('connection refused')
-
+                continue
             try:
                 message = "p3:TEMP"
                 print ('Sending ' + message)
@@ -31,14 +32,14 @@ def p3_get_temp_from_p2():
                 s.close()
             except:
                 print('Send data failed')
+                continue
 
             conn, addr = mySocket.accept()
             print ("Connection from: " + str(addr))
             data = conn.recv(1024).decode()
             print ('Received from server: ' + data)
             conn.close()
-
             s.close()
-            time.sleep(5)
+
 
 p3_get_temp_from_p2()
