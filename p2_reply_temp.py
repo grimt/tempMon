@@ -31,12 +31,14 @@ def p2_send_temp_p3():
                     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 except socket.error:
                     print ('Failed to create socket')
-                    break
+                    conn.close()
+                    continue
                 try:
                     s.connect((remote_ip , port))
                 except:
                     print ('connection refused')
-                    break
+                    conn.close()
+                    continue
                 try:
                     s.send(data.encode())
                     s.close()
