@@ -26,6 +26,7 @@ def p2WriteAmbTempToFile (temp):
     writeDataToFile('../datafiles/p2CurrentTemperature.txt', data)
 
 def p2ReadFromDHT():
+    errorCount = 0
     while True:
         #humidity, temperature = Adafruit_DHT.read_retry(22, 4)
         humidity, temperature = Adafruit_DHT.read(22, 4)
@@ -42,7 +43,8 @@ def p2ReadFromDHT():
             p2AppendAmbTempToFile(tempStr)
             p2WriteAmbTempToFile(tempStr)
         else:
-            print ('Failed to get reading. Try again!')
+            errorCount = errorCount + 1
+            print ('Failed to get reading. Try again: ' + str(errorCount))
         time.sleep(2)
 
 p2ReadFromDHT()
