@@ -1,6 +1,6 @@
 # Send a message to p2 asking for the temperature
 # Wait for the result then print it out
-corresponding pi2 code is p2_reply_temp.py
+# corresponding pi2 code is p2_reply_temp.py
 import socket
 
 def p3_get_temp_from_p2():
